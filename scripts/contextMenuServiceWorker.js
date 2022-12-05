@@ -6,6 +6,7 @@ const sendMessage = (content) => {
       activeTab,
       { message: "inject", content },
       (response) => {
+        console.log(response);
         if (response.status === "failed") {
           console.log("injection failed.");
         }
@@ -66,6 +67,8 @@ const generateCompletionAction = async (info) => {
       `${basePromptPrefix}${selectionText}`
     );
 
+    console.log(baseCompletion);
+
     // Add your second prompt here
     const secondPrompt = `
           Take the table of contents and title of the blog post below and generate a blog post written in thwe style of Paul Graham. Make it feel like a story. Don't just list the points. Go deep into each one. Explain why.
@@ -79,6 +82,7 @@ const generateCompletionAction = async (info) => {
 
     // Call your second prompt
     const secondPromptCompletion = await generate(secondPrompt);
+    console.log(secondPromptCompletion);
     sendMessage(secondPromptCompletion.text);
 
   } catch (error) {
